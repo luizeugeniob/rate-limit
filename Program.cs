@@ -1,3 +1,5 @@
+using rate_limit.RateLimit;
+
 namespace rate_limit
 {
     public class Program
@@ -13,6 +15,8 @@ namespace rate_limit
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddDistributedMemoryCache();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -24,6 +28,7 @@ namespace rate_limit
 
             app.UseAuthorization();
 
+            app.UseMiddleware<RateLimitMiddleware>();
 
             app.MapControllers();
 

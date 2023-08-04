@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using rate_limit.RateLimit;
 
 namespace rate_limit.Controllers
 {
@@ -19,6 +20,7 @@ namespace rate_limit.Controllers
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
+        [RateLimit(MaxRequests = 2, TimeWindowInSeconds = 5)]
         public IEnumerable<WeatherForecast> Get()
         {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
