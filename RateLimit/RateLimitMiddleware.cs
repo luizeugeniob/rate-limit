@@ -3,7 +3,7 @@ using System.Net;
 
 namespace rate_limit.RateLimit;
 
-public partial class RateLimitMiddleware
+public class RateLimitMiddleware
 {
     private readonly RequestDelegate _next;
     private readonly IDistributedCache _cache;

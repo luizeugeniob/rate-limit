@@ -1,32 +1,29 @@
 ﻿namespace rate_limit.RateLimit;
 
-public partial class RateLimitMiddleware
+public class ConsumptionData
 {
-    public class ConsumptionData
+    public ConsumptionData(
+        DateTime lastResponse,
+        int numberOfRequests)
     {
-        public ConsumptionData(
-            DateTime lastResponse,
-            int numberOfRequests)
-        {
-            LastResponse = lastResponse;
-            NumberOfRequests = numberOfRequests;
-        }
+        LastResponse = lastResponse;
+        NumberOfRequests = numberOfRequests;
+    }
 
-        public DateTime LastResponse { get; private set; }
-        public int NumberOfRequests { get; private set; }
+    public DateTime LastResponse { get; private set; }
+    public int NumberOfRequests { get; private set; }
 
-        public bool HasConsumedAllRequests(int timeWindowInSeconds, int maxRequests) 
-            => DateTime.UtcNow < LastResponse.AddSeconds(timeWindowInSeconds) && NumberOfRequests == maxRequests;
+    public bool HasConsumedAllRequests(int timeWindowInSeconds, int maxRequests)
+        => DateTime.UtcNow < LastResponse.AddSeconds(timeWindowInSeconds) && NumberOfRequests == maxRequests;
 
-        public void IncreaseRequests(int maxRequests)
-        {
-            LastResponse = DateTime.UtcNow;
+    public void IncreaseRequests(int maxRequests)
+    {
+        LastResponse = DateTime.UtcNow;
 
-            if (NumberOfRequests == maxRequests)
-                NumberOfRequests = 1;
+        if (NumberOfRequests == maxRequests)
+            NumberOfRequests = 1;
 
-            else
-                NumberOfRequests++;
-        }
+        else
+            NumberOfRequests++;
     }
 }
