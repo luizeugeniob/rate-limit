@@ -1,9 +1,8 @@
-﻿namespace rate_limit.RateLimit
+﻿namespace rate_limit.RateLimit;
+
+[AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
+public class RateLimitAttribute : Attribute
 {
-    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
-    public class RateLimitAttribute : Attribute
-    {
-        public int TimeWindowInSeconds { get; set; }
-        public int MaxRequests { get; set; }
-    }
+    public int TimeWindowInSeconds { get; set; }
+    public int MaxRequests { get; set; }
 }
